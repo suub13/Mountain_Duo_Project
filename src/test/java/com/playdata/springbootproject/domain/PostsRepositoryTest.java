@@ -1,6 +1,9 @@
 package com.playdata.springbootproject.domain;
 
 
+import com.playdata.springbootproject.domain.posts.Posts;
+import com.playdata.springbootproject.domain.posts.PostsRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -8,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDateTime;
+
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
@@ -16,7 +22,7 @@ public class PostsRepositoryTest {
     @Autowired
     PostsRepository postsRepository;
 
-    @AfterEach
+    @AfterEach // JUnit4 @After
     public void cleanup() {
         postsRepository.deleteAll();
     }
@@ -43,4 +49,30 @@ public class PostsRepositoryTest {
         assertEquals(posts.getAuthor(), author);
 
     }
+
+    @Test
+    public void auditingEntity(){
+        //given - 기본 설정
+        String title = "title";
+        String content = "content";
+        String author = "author";
+        LocalDateTime now = LocalDateTime.now();
+
+        postsRepository.save(Posts.builder()
+                        .title(title)
+                        .content(content)
+                .author(author)
+                .build());
+
+        //when
+        Posts posts = postsRepository.findAll().get(0);
+
+        //then
+        assertThat(posts.getCreatedDate()).isAfter(now);
+        assertThat(posts.getModifiedDate()).isAfter(now);
+
+
+    }
+
+
 }
