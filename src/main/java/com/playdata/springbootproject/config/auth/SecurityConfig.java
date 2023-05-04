@@ -27,7 +27,7 @@ public class SecurityConfig {
                     // URL 별 권한 관리 설정
                     .authorizeHttpRequests()
                     // 권한 관리 대상을 URL로 지정, 아래 패턴의 URL에 대해서 전체 접근하는 사용자에 대해서 모두 허가
-                    .requestMatchers("/","/css/**","/images/**", "/js/**", "/profile", "/posts/**").permitAll() // permitAll 먼저
+                    .requestMatchers("/","/css/**","/images/**", "/js/**", "/profile").permitAll() // permitAll 먼저
                     // ROLE_USER라고 하는 권한을 가진 사람만 "/api/v1/**" 하위 URL에 대해서 허가
                     .requestMatchers("/api/v1/**").hasRole(Role.USER.name())
                     // 나머지 URL에 대해서 설정
