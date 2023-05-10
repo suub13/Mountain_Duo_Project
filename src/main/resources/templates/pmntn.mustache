@@ -1,0 +1,54 @@
+{{>layout/header}}
+
+    <div class="container">
+        <h1 style="font-size: 20px;">등산로 찾기</h1>
+        <form action="search" method="get">
+            <label for="pmntnsn">등산로 번호</label>
+            <input type="text" id="pmntnsn" name="pmntnsn" placeholder="등산로 번호를 입력하세요." required>
+            &nbsp
+            <button type="submit" class="btn-search">검색</button>
+        </form>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th><b>산</b></th>
+                <th><b>등산로</b></th>
+                <th><b>상세경로</b></th>
+                <th><b>총 거리</b></th>
+                <th><b>난이도</b></th>
+                <th><b>소요시간</b></th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#pmntn}}
+                <tr>
+                    <td>${pmntn.mntn_nm}</td>
+                    <td><a href="pmntnSearch.jsp?id=${pmntn.pmntn_sn}">
+                        ${pmntn.pmntn_nm}</td>
+                    <td>${pmntn.pmntn_lt}</td>
+                    <td>${pmntn.pmntn_dffl}</td>
+                    <td>${pmntn.pmntn_tm}</td>
+                </tr>
+            {{/pmntn}}
+            </tbody>
+        </table>
+<!--        {{#username}}-->
+<!--            <div>-->
+<!--                <a href="write.jsp" class="btn btn-primary">글쓰기</a>-->
+<!--            </div>-->
+<!--        {{/username}}-->
+
+    </div>
+    <div class="container" id="page">
+        <a>페이지: </a>
+        <form action="page" method="get">
+            <a href="#" class="previous round" id="pageminus">&#8249;</a>
+            <a href="#" class="next round" id="pageplus">&#8250;</a>
+            <!--            <label for="pagenm">page 번호</label>-->
+            <!--            <input type="text" id="pagenm" name="pagenm" placeholder="페이지 번호" >-->
+            <!--            &nbsp-->
+            <!--            <button type="submit" class="btn btn-primary">검색</button>-->
+        </form>
+    </div>
+{{>layout/footer}}

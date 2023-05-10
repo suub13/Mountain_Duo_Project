@@ -16,7 +16,7 @@ public class IndexController {
     private final PostsService postsService;
     private final HttpSession httpSession;
 
-    @GetMapping("/")
+    @GetMapping("/posts")
     public String index(Model model, HttpSession httpSession){
         // Model: 서버 템플릿 엔진에서 사용할 수 있는 객체를 저장할 수 있다.
         model.addAttribute("posts", postsService.findAllDesc());
