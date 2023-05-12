@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller // Json이 아니라 그냥 view로 보내주는 것
 @RequiredArgsConstructor
-public class IndexController {
+public class PostsController {
 
     private final PostsService postsService;
     private final HttpSession httpSession;
@@ -21,12 +21,12 @@ public class IndexController {
         // Model: 서버 템플릿 엔진에서 사용할 수 있는 객체를 저장할 수 있다.
         model.addAttribute("posts", postsService.findAllDesc());
         SessionUser user = (SessionUser) httpSession.getAttribute("user");
-        
+        System.out.println("posts inside");
         if (user != null) {
             model.addAttribute("userName",user.getName());
         }
 
-        return "index"; // view resolve라는 것이 /src/main/resources/template/ + "index" + .mustache 형식으로 보내줌
+        return "posts"; // view resolve라는 것이 /src/main/resources/template/ + "index" + .mustache 형식으로 보내줌
     }
 
     @GetMapping("/posts/save")

@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class IndexControllerTest {
+public class PostsControllerTest {
     @Autowired
     private TestRestTemplate testRestTemplate;
 

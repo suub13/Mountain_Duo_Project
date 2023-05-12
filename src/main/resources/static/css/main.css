@@ -84,7 +84,21 @@ div.container{
     padding: 30px 0px;
 }
 
-#page {
+#header {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+#content {
+  margin-top: 100px;
+}
+
+
+div.page {
+    text-align: center;
+    width: 100%;
+
     height: 100px;
     margin-right: auto;
     margin-left: auto;
@@ -109,21 +123,13 @@ div{
     display: block;
 }
 
-input.pagenm {
-
-}
-
-div.pagenm {
-
-}
-
-a.round{
+a.page{
   text-decoration: none;
   display: inline-block;
   padding: 8px 16px;
 }
 
-a.round:hover {
+a.page:hover {
   background-color: #ddd;
   color: black;
 }
@@ -138,15 +144,15 @@ a.round:hover {
   color: white;
 }
 
-.round {
+.page {
   border-radius: 50%;
 }
 
 .container form {
-    padding: 15px 0px;
+    padding: 10x 0px;
 }
 
-.table {
+.table-head {
     border-bottom:2px solid black;
 }
 
@@ -163,4 +169,32 @@ a.round:hover {
     background-color: gray;
     color: white;
     border: 2px solid white;
+}
+
+tbody td {
+    width: 10%;
+    font-size: 13px;
+    max-width: 100px;
+}
+
+tbody td.pmntn_detail {
+    width: 30%;
+    max-width: 200px;
+}
+
+tbody td.pmntn_tm {
+    width: 15%;
+}
+
+nav.filter {
+    background-color: white;
+    justify-content: center;
+    padding: 10px 0px;
+}
+.space {
+    padding: 0px 10px;
+}
+
+#footer nav {
+    background-color: rgb(158, 208, 167);
 }

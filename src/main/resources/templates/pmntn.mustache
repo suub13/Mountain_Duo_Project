@@ -1,54 +1,101 @@
 {{>layout/header}}
-
-    <div class="container">
-        <h1 style="font-size: 20px;">등산로 찾기</h1>
-        <form action="search" method="get">
-            <label for="pmntnsn">등산로 번호</label>
-            <input type="text" id="pmntnsn" name="pmntnsn" placeholder="등산로 번호를 입력하세요." required>
-            &nbsp
-            <button type="submit" class="btn-search">검색</button>
-        </form>
-
-        <table class="table">
-            <thead>
-            <tr>
-                <th><b>산</b></th>
-                <th><b>등산로</b></th>
-                <th><b>상세경로</b></th>
-                <th><b>총 거리</b></th>
-                <th><b>난이도</b></th>
-                <th><b>소요시간</b></th>
-            </tr>
-            </thead>
-            <tbody>
-            {{#pmntn}}
+    <div class="content">
+        <div class="container pmntn">
+            <h1 style="margin-left: 20px; margin-bottom: 20px; text-align: left; font-size: 20px; padding: 10px 0px;">등산로 찾기</h1>
+            <nav class="filter">
+                <div class="space">
+                    <form action="/pmntn" method="get">
+                        <label for="level">난이도</label>
+                        <select name="level" id="level">
+                            <option value="#" selected>전체</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                        <label for="time">소요시간</label>
+                        <select name="time" id="time">
+                            <option value="#" selected>전체</option>
+                            <option value="0">~60분</option>
+                            <option value="1">1~2시간</option>
+                            <option value="2">2~3시간</option>
+                            <option value="3">3~4시간</option>
+                            <option value="4">4~5시간</option>
+                            <option value="5">5~6시간</option>
+                            <option value="6">6~7시간</option>
+                            <option value="7">7시간~</option>
+                        </select>
+                        <input type="submit"  class="btn-search" value="검색"></input>
+                    </form>
+                </div>
+<!--                <div class="space">-->
+<!--                    <form action="search" method="get">-->
+<!--                        <label for="pmntnsn">등산로 번호</label>-->
+<!--                        <input type="text" id="pmntnsn" name="pmntnsn" placeholder="등산로 번호를 입력하세요." required>-->
+<!--                    </form>-->
+<!--                </div>-->
+            </nav>
+            <div style="text-align: right">
+                검색 결과수: {{dataNum}}
+            </div>
+            <table class = "table">
+                <thead class="table-head">
                 <tr>
-                    <td>${pmntn.mntn_nm}</td>
-                    <td><a href="pmntnSearch.jsp?id=${pmntn.pmntn_sn}">
-                        ${pmntn.pmntn_nm}</td>
-                    <td>${pmntn.pmntn_lt}</td>
-                    <td>${pmntn.pmntn_dffl}</td>
-                    <td>${pmntn.pmntn_tm}</td>
+                    <th><b>산</b></th>
+                    <th><b>등산로</b></th>
+                    <th><b>총 거리</b></th>
+                    <th><b>난이도</b></th>
+                    <th><b>소요시간</b></th>
+                    <th><b>상세경로</b></th>
                 </tr>
-            {{/pmntn}}
-            </tbody>
-        </table>
-<!--        {{#username}}-->
-<!--            <div>-->
-<!--                <a href="write.jsp" class="btn btn-primary">글쓰기</a>-->
-<!--            </div>-->
-<!--        {{/username}}-->
+                </thead>
+                <tbody>
+                {{#pmntn}}
+                    <tr>
+                        <td><a href="#">{{pmntnSn}}</a></td>
 
-    </div>
-    <div class="container" id="page">
-        <a>페이지: </a>
-        <form action="page" method="get">
-            <a href="#" class="previous round" id="pageminus">&#8249;</a>
-            <a href="#" class="next round" id="pageplus">&#8250;</a>
-            <!--            <label for="pagenm">page 번호</label>-->
-            <!--            <input type="text" id="pagenm" name="pagenm" placeholder="페이지 번호" >-->
-            <!--            &nbsp-->
-            <!--            <button type="submit" class="btn btn-primary">검색</button>-->
-        </form>
+                        <td class="pmntn_detail">{{mntnNm}}&nbsp{{pmntnNm}}</td>
+                        <td>{{pmntnLt}}km</td>
+                        <td>{{pmntnDffl}}</td>
+                        <td class="pmntn_tm">{{pmntnTm}}분</td>
+                        <td class="pmntn_detail">{{pmntnMain}}</td>
+                    </tr>
+                {{/pmntn}}
+                {{#pmntnSearched}}
+                    <tr>
+                        <td><a href="#">{{pmntnSn}}</a></td>
+
+                        <td class="pmntn_detail">{{mntnNm}}&nbsp{{pmntnNm}}</td>
+                        <td>{{pmntnLt}}km</td>
+                        <td>{{pmntnDffl}}</td>
+                        <td class="pmntn_tm">{{pmntnTm}}분</td>
+                        <td class="pmntn_detail">{{pmntnMain}}</td>
+                    </tr>
+                {{/pmntnSearched}}
+                </tbody>
+            </table>
+    <!--        {{#username}}-->
+    <!--            <div>-->
+    <!--                <a href="write.jsp" class="btn btn-primary">글쓰기</a>-->
+    <!--            </div>-->
+    <!--        {{/username}}-->
+
+        </div>
+        <div class="page">
+            <a style="padding-right: 10px;">페이지: {{page}} / {{maxPage}}</a>
+            {{#hasPreviousPage}}
+                <a href="/pmntn?pagenm={{previousPage}}&level={{level}}&time={{time}}" class="previous page">&#8249;</a>
+            {{/hasPreviousPage}}
+            {{#hasNextPage}}
+                <a href="/pmntn?pagenm={{nextPage}}&level={{level}}&time={{time}}" class="next page">&#8250;</a>
+            {{/hasNextPage}}
+<!--            <form action="page" method="get">-->
+<!--                <a role="button" class="previous page" id="previouspage">&#8249;</a>-->
+<!--                <a role="button" class="next page" id="nextpage">&#8250;</a>-->
+                <!--            <label for="pagenm">page 번호</label>-->
+                <!--            <input type="text" id="pagenm" name="pagenm" placeholder="페이지 번호" >-->
+                <!--            &nbsp-->
+                <!--            <button type="submit" class="btn btn-primary">검색</button>-->
+<!--            </form>-->
+        </div>
     </div>
 {{>layout/footer}}
