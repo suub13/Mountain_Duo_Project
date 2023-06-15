@@ -19,15 +19,23 @@ public class Posts extends AuditingEntity {
     private String content;
     private String author;
 
+    @Column(nullable = false)
+    private String climbing_mountain;
+    private Date climbing_date;
     @Builder
-    public Posts(String title, String content, String author) {
+    public Posts(String title, String content, String author, String climbing_mountain, Date climbing_date) {
         this.title = title;
         this.content = content;
         this.author = author;
+        this.climbing_mountain=climbing_mountain;
+        this.climbing_date=climbing_date;
     }
 
-    public void update(String title, String content) {
+    public void update(String title, String content, String climbing_mountain, Date climbing_date) {
         this.title = title;
         this.content = content;
+        this.climbing_mountain=climbing_mountain;
+        this.climbing_date=climbing_date;
     }
 }
+
