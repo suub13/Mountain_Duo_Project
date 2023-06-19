@@ -5,7 +5,6 @@ import com.playdata.springbootproject.domain.pmntn.PmntnRepository;
 import com.playdata.springbootproject.web.dto.PmntnResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,7 +50,7 @@ public class PmntnService {
                 .map(PmntnResponseDto::new)
                 .collect(Collectors.toList());
     }
-    
+
     // 소요시간 between & level 필터링
     public List<PmntnResponseDto> findByPmntnTmBetweenAndLevel(Integer minTime, Integer maxTime, String pmntnDffl, Pageable pageable) {
         List<Pmntn> pmntn = pmntnRepository.findByPmntnTmBetweenAndLevel(minTime,  maxTime, pmntnDffl, pageable);

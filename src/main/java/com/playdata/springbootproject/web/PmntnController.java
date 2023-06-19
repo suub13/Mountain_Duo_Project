@@ -1,7 +1,7 @@
 package com.playdata.springbootproject.web;
 
 
-import com.playdata.springbootproject.config.auth.SessionUser;
+import com.playdata.springbootproject.domain.hikers.SessionHikers;
 import com.playdata.springbootproject.service.PmntnService;
 import com.playdata.springbootproject.web.dto.PmntnResponseDto;
 import jakarta.servlet.http.HttpSession;
@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -24,36 +23,16 @@ public class PmntnController {
 
     private int pageNum;
 
-//    @GetMapping("/pmntn")
-//    public String pmntn(Model model, @RequestParam(value = "pagenm", defaultValue = "0") String pagenm) {
-//        pageNum = Integer.parseInt(pagenm);
-//        model.addAttribute("page", pageNum+1);
-//
-//        // 데이터 20개씩 표현하기 위해 pageable 형성
-//        Pageable pageable = PageRequest.of(pageNum, 20);
-//        List<PmntnResponseDto> pmntnResponseDto = pmntnService.findAllBy(pageable);
-//
-//        //pageable 되어 있지 않은 총 데이터 개수 확인
-//        List<PmntnResponseDto> pmntnResponseDtos = pmntnService.findAll();
-//        int dataNum = pmntnResponseDtos.size();
-//        System.out.println(dataNum);
-//
-//        model.addAttribute("dataNum", dataNum);
-//        model.addAttribute("pmntn", pmntnResponseDto);
-////        SessionUser user = (SessionUser) httpSession.getAttribute("user");
-////
-////        if(user != null){
-////            model.addAttribute("userName", user.getName());
-////        }
-//        return "pmntn";
-//
-//    }
-
     @GetMapping("/pmntn")
     public String pmntnSearch(Model model,
                               @RequestParam(value = "pagenm", defaultValue = "0") String pagenm,
                               @RequestParam(value = "level", defaultValue = "#") String level,
                               @RequestParam(value = "time", defaultValue = "#") String time) {
+        // 세션 유지
+        SessionHikers user = (SessionHikers) httpSession.getAttribute("userid");
+        if(user!=null) {
+            model.addAttribute("userid", user.getUserid());
+        }
 
         pageNum = Integer.parseInt(pagenm);
         model.addAttribute("page", pageNum+1);

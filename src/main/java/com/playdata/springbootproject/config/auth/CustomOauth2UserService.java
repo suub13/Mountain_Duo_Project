@@ -23,33 +23,28 @@ public class CustomOauth2UserService implements OAuth2UserService {
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-        // OAuth2UserService를 통해 가져온 OAuth2User의 Attribute를 담을 클래스
+        // OAuth2UserService 를 통해 가져온 OAuth2User 의 Attribute 를 담을 클래스
         OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
 
-        // OAuth2UserService를 통해 가져온 OAUth2User
+        // OAuth2UserService 를 통해 가져온 OAuth2User
         OAuth2User oAuth2User = delegate.loadUser(userRequest);
 
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
-
         String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails()
                 .getUserInfoEndpoint().getUserNameAttributeName();
 
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
-
         User user = saveOrUpdate(attributes);
-
-        httpSession.setAttribute("user", new SessionUser(user));
-
+        httpSession.setAttribute("userid", new SessionUser(user));
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(user.getRoleKey())),
                 attributes.getAttributes(),
                 attributes.getNameAttributeKey()
         );
-
     }
 
     /**
-     * OAuth2UserService를 통해 가져온 OAuth2User의 Attributes를 담을 클래스를 가져와서 DB에 저장(업데이트)
+     * OAuth2UserService 를 통해 가져온 OAuth2User 의 Attribute 를 담을 클래스를 가져와서 DB에 저장(업데이트)
      * @param attributes
      * @return User
      */
@@ -58,6 +53,5 @@ public class CustomOauth2UserService implements OAuth2UserService {
                 .map(entity -> entity.update(attributes.getName()))
                 .orElse(attributes.toEntity());
         return userRepository.save(user);
-                
     }
 }

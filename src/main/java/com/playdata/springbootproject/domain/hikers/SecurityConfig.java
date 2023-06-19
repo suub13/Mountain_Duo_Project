@@ -22,23 +22,23 @@ public class SecurityConfig {
                 //이 메소드의 frameOptions().disable()을 호출해서 X-Frame=Options(iframe) 헤더 설정 비활성화
                 .headers().frameOptions().disable()
                 .and()
-                    // URL별 권한 관리 설정
-                    .authorizeHttpRequests()
-                    // 권한 관리 대상을 URL로 지정, 아래 패턴의 URL에 대해서 전체 접근하는 사용자에 대해서 모두 허가
-                    .requestMatchers("/","css/**","/images/**","/js/**","/profile", "/registers/**", "/register/**", "/**").permitAll()
-                    // USER라고 하는 권한을 가진 사람만 "/api/v1/**/" 하위 URL에 대해서 허가
-                    .requestMatchers("/api/v1/**").hasRole(Role.USER.name())
-                    // 나머지 URL에 대해서 설정
-                    .anyRequest().authenticated()
+                // URL별 권한 관리 설정
+                .authorizeHttpRequests()
+                // 권한 관리 대상을 URL로 지정, 아래 패턴의 URL에 대해서 전체 접근하는 사용자에 대해서 모두 허가
+                .requestMatchers("/","css/**","/images/**","/js/**","/profile", "/registers/**", "/register/**", "/**").permitAll()
+                // USER라고 하는 권한을 가진 사람만 "/api/v1/**/" 하위 URL에 대해서 허가
+                .requestMatchers("/api/v1/**").hasRole(Role.USER.name())
+                // 나머지 URL에 대해서 설정
+                .anyRequest().authenticated()
                 .and()
-                  .formLogin().loginPage("/log-in")
-                  .loginProcessingUrl("/loginProc")
-                  .defaultSuccessUrl("/")
+                .formLogin().loginPage("/log-in")
+                .loginProcessingUrl("/loginProc")
+                .defaultSuccessUrl("/")
                 .and()
-                    // 로그아웃 기능에 대한 설정
-                    .logout()
-                        // 로그아웃 이후에 이동되는 URL
-                        .logoutSuccessUrl("/");
+                // 로그아웃 기능에 대한 설정
+                .logout()
+                // 로그아웃 이후에 이동되는 URL
+                .logoutSuccessUrl("/");
 
         return http.build();
     }

@@ -17,6 +17,6 @@ public interface HikersRepository extends JpaRepository<Hikers, Long> {
     //id찾기
 //    @Query("SELECT p FROM Hikers p WHERE p.Ssn = :ssn AND p.Phone = :phone")
     Hikers findBySsnAndPhone(@Param("ssn") String ssn, @Param("phone") String phone);
-//    @Query("SELECT p FROM Hikers p WHERE p.Ssn = :ssn AND p.Phone = :phone AND p.Userid=:userid" )
+    //    @Query("SELECT p FROM Hikers p WHERE p.Ssn = :ssn AND p.Phone = :phone AND p.Userid=:userid" )
     Hikers findBySsnAndPhoneAndUserid(@Param("ssn") String ssn,@Param("phone") String phone,@Param("userid") String userid);
 }
