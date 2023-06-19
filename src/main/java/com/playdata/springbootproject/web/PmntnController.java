@@ -23,6 +23,31 @@ public class PmntnController {
 
     private int pageNum;
 
+//    @GetMapping("/pmntn")
+//    public String pmntn(Model model, @RequestParam(value = "pagenm", defaultValue = "0") String pagenm) {
+//        pageNum = Integer.parseInt(pagenm);
+//        model.addAttribute("page", pageNum+1);
+//
+//        // 데이터 20개씩 표현하기 위해 pageable 형성
+//        Pageable pageable = PageRequest.of(pageNum, 20);
+//        List<PmntnResponseDto> pmntnResponseDto = pmntnService.findAllBy(pageable);
+//
+//        //pageable 되어 있지 않은 총 데이터 개수 확인
+//        List<PmntnResponseDto> pmntnResponseDtos = pmntnService.findAll();
+//        int dataNum = pmntnResponseDtos.size();
+//        System.out.println(dataNum);
+//
+//        model.addAttribute("dataNum", dataNum);
+//        model.addAttribute("pmntn", pmntnResponseDto);
+////        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+////
+////        if(user != null){
+////            model.addAttribute("userName", user.getName());
+////        }
+//        return "pmntn";
+//
+//    }
+
     @GetMapping("/pmntn")
     public String pmntnSearch(Model model,
                               @RequestParam(value = "pagenm", defaultValue = "0") String pagenm,

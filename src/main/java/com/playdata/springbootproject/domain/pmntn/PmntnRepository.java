@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface PmntnRepository extends JpaRepository<Pmntn, Integer>{
-    //    @Query("SELECT p FROM Pmntn p ORDER BY p.pmntn_sn")
+//    @Query("SELECT p FROM Pmntn p ORDER BY p.pmntn_sn")
     List<Pmntn> findAll();
     List<Pmntn> findAllBy(Pageable pageable);
 

@@ -36,4 +36,23 @@ public class LoginController {
         }
     }
 
+
+
+//    @GetMapping("/findUserid")
+//    public String findUserid(@RequestParam("ssn") String ssn, @RequestParam("phone") String phone, Model model) {
+//        Hikers hiker = hikersService.findBySsnAndPhone(ssn, phone);
+//        if (hiker != null) {
+//            model.addAttribute("userid", hiker.getUserid());
+//        } else {
+//            model.addAttribute("userid", "사용자를 찾을 수 없음");
+//        }
+//        return "findUserIdResult";
+//    }
+
+
+//    @GetMapping("/log-out")
+//    public ResponseEntity<?> logout(HttpSession httpSession) {
+//        httpSession.invalidate();
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 }
